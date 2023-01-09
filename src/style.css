@@ -1,0 +1,32 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+.container {
+  width: 90%;
+  max-width: 300px;
+  margin: 5rem auto;
+}
+.form-control {
+  margin: 3rem 0;
+}
+.input-field {
+  padding: 0.5rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+.btn:hover {
+  background-color: blueviolet;
+  color: antiquewhite;
+}
+.btn {
+  padding: 0.3rem 0.7rem;
+  background-color: antiquewhite;
+  color: blueviolet;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.btn-profile {
+  margin: 2rem 0;
+}
