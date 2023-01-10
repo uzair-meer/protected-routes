@@ -1,49 +1,55 @@
-import React, { useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "./context";
-import "./style.css";
+import { useState } from "react";
 
-const Login = () => {
-  const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const logInHandler = (e) => {
+const LogIn = () => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [token, setToken] = useState(null);
+
+  const submitHandler = (e) => {
+    const sendReq = async () => {
+      const response = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+      const data = await response.json();
+
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      console.log(data);
+    };
+    sendReq();
     e.preventDefault();
-    authCtx.logIn();
-    navigate("/profile");
   };
   return (
     <>
-      <div className="container">
-        <h1>Login Page</h1>
-        <form className="form-control" onSubmit={logInHandler}>
-          <div>
-            <label htmlFor="Email">Email</label>
-            <input
-              type="email"
-              id="Email"
-              className="input-field"
-              required
-              ref={emailInputRef}
-            />
-          </div>
-          <div>
-            <label htmlFor="Pssword">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="input-field"
-              required
-              ref={passwordInputRef}
-            />
-          </div>
-          <div>
-            <button className="btn">Login</button>
-          </div>
-        </form>
+      <div>
+        <h2> Valid Usernames and Passwords</h2>
+        <ul>
+          <li>"username":"atuny0","password":"9uQFF1Lh"</li>
+          <li>"username":"dpettegre6","password":"YVmhktgYVS"</li>
+          <li>"username":"rshawe2","password":"OWsTbMUgFc"</li>
+        </ul>
       </div>
+      <form action="" method="post" onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Sign Up</button>
+      </form>
+      {token && <div>Token : {token}</div>}
     </>
   );
 };
-export default Login;
+
+export default LogIn;
